@@ -65,7 +65,7 @@ function App() {
         <small className="text-muted">Show : </small>
         <select
           className="form-select form-select-sm ms-2"
-          style={{ width: '5rem' }}
+          style={{ width: "5rem" }}
         >
           <option>10</option>
           <option>25</option>
@@ -146,7 +146,7 @@ function App() {
             <button className="page-link">
               <i
                 className="fa-solid fa-ellipsis"
-                style={{ fontSize: '0.375rem' }}
+                style={{ fontSize: "0.375rem" }}
               />
             </button>
           </li>
@@ -163,7 +163,7 @@ function App() {
             <button className="page-link">
               <i
                 className="fa-solid fa-ellipsis"
-                style={{ fontSize: '0.375rem' }}
+                style={{ fontSize: "0.375rem" }}
               />
             </button>
           </li>
