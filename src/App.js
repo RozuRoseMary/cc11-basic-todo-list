@@ -51,12 +51,12 @@ function App() {
       {/* update todo list */}
       <TodoInput createTodo={createTodo} />
 
-      <Filter />
-      <PageLimit />
+      {/* <Filter /> */}
+      {/* <PageLimit /> */}
 
       {/* show todo list in obj*/}
-      <TodoList todoList={todoList} />
-      <Pagination />
+      {/* <TodoList todoList={todoList} /> */}
+      {/* <Pagination /> */}
     </div>
   );
 }
