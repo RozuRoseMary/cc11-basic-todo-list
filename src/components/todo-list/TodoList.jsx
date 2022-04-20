@@ -1,13 +1,20 @@
 import Todo from "./Todo";
 
-function TodoList() {
+function TodoList(props) {
+  //TodoList -> delete task
+  // const deleteTask = (todo) => {
+  // };
+
   return (
     <ul className="list-group shadow mt-4">
-      <Todo title="Homework" completed={true}></Todo>
-      <Todo title="Personal Project Figma" completed={true}></Todo>
-      <Todo title="Personal Project" completed={false}></Todo>
-      <Todo title="Mid term exam" completed={false}></Todo>
-      <Todo title="Lab" completed={false}></Todo>
+      {props.todoList.map((el) => (
+        <Todo
+          key={el.id}
+          title={el.title}
+          completed={el.completed}
+          // deleteTask={deleteTask}
+        />
+      ))}
     </ul>
   );
 }

@@ -1,5 +1,3 @@
-import React from "react";
-
 function PageItem(props) {
   const { active, disabled } = props;
   return (

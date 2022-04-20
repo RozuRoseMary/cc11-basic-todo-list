@@ -1,7 +1,8 @@
 import Button from "../ui/Button";
 
 function Todo(props) {
-  const { title, completed } = props;
+  // App
+  const { title, completed, id } = props;
 
   return (
     <li
@@ -17,6 +18,7 @@ function Todo(props) {
         <Button color="outline-info">
           <i className={`fa-solid fa-toggle-${completed ? "on" : "off"}`}></i>
         </Button>
+        ({/* <Button color="danger" onCLick={props.deleteTask(id)}> */}
         <Button color="danger">
           <i className="fa-solid fa-trash-can"></i>
         </Button>
