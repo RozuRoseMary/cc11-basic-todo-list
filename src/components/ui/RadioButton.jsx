@@ -6,6 +6,8 @@ function RadioButton(props) {
         className="btn-check"
         name={props.name}
         id={props.id}
+        onChange={props.onChange}
+        defaultChecked={props.defaultChecked}
       />
 
       {/* className="btn btn-outline-dark shadow[none" */}

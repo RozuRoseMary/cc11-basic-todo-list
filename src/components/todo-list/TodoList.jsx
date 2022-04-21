@@ -1,10 +1,6 @@
 import Todo from "./Todo";
 
 function TodoList(props) {
-  //TodoList -> delete task
-  // const deleteTask = (todo) => {
-  // };
-
   return (
     <ul className="list-group shadow mt-4">
       {props.todoList.map((el) => (
@@ -12,7 +8,9 @@ function TodoList(props) {
           key={el.id}
           title={el.title}
           completed={el.completed}
-          // deleteTask={deleteTask}
+          id={el.id}
+          removeTodo={props.removeTodo}
+          updateTodo={props.updateTodo}
         />
       ))}
     </ul>

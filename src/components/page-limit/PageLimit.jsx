@@ -5,8 +5,6 @@ function PageLimit() {
       <select
         className="form-select form-select-sm ms-4"
         style={{ width: "5rem" }}
-        name=""
-        id=""
       >
         <option value="">10</option>
         <option value="">25</option>
