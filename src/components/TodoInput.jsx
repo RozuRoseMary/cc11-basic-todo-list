@@ -31,7 +31,7 @@ function TodoInput(props) {
   }
 
   return (
-    <form>
+    <>
       <div className={`input-group mt-4 shadow ${!todoError ? " mb-4" : ""}`}>
         <input
           type="text"
@@ -68,7 +68,7 @@ function TodoInput(props) {
         </Button>
       </div>
       {todoError && <small className="text-danger">{todoError}</small>}
-    </form>
+    </>
   );
 }
 
