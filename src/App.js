@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import "./App.css";
@@ -7,8 +7,6 @@ import Filter from "./components/filter/Filter";
 import PageLimit from "./components/page-limit/PageLimit";
 import TodoList from "./components/todo-list/TodoList";
 import Pagination from "./components/pagination/Pagination";
-
-// let initialTodoList;
 
 function App() {
   const [todoList, setTodoList] = useState([]);
