@@ -16,47 +16,65 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:8080/todos").then((res) => {
-      setTodoList(res.data.todos);
-    });
+    try {
+      const fetchTodos = async () => {
+        const res = await axios.get("http://localhost:8080/todos");
+        setTodoList(res.data.todos);
+      };
+      fetchTodos();
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   // TodoInput -> add to TodoList
-  function createTodo(title) {
-    const newTodo = { title, completed: false, id: uuidv4() };
-    const newTodoList = [newTodo, ...todoList];
-    setTodoList(newTodoList);
-  }
-
-  function removeTodo(id) {
-    //😢filter take a lot of time
-    //find index
-    const idx = todoList.findIndex((el) => el.id === id);
-    // find index or not
-    if (idx !== -1) {
-      //clone
-      const oldTodoList = [...todoList];
-      //use splice
-      oldTodoList.splice(idx, 1);
-      //set new state
-      setTodoList(oldTodoList);
+  const createTodo = async (title) => {
+    try {
+      const newTodo = { title, completed: false };
+      await axios.post("http://localhost:8080/todos", newTodo).then((res) => {
+        const newTodoList = [res.data.todo, ...todoList];
+        setTodoList(newTodoList);
+      });
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
+
+  const removeTodo = async (id) => {
+    try {
+      await axios.delete("http://localhost:8080/todos/" + id);
+      const toDelete = await axios.get("http://localhost:8080/todos");
+      setTodoList(toDelete.data.todos);
+    } catch (err) {
+      console.log(err);
+    }
+    // const idx = todoList.findIndex((el) => el.id === id);
+    // if (idx !== -1) {
+    //   const oldTodoList = [...todoList];
+    //   oldTodoList.splice(idx, 1);
+    //   setTodoList(oldTodoList);
+    // }
+  };
 
   // newValue => {title, completed}
-  function updateTodo(newValue, id) {
-    const idx = todoList.findIndex((el) => el.id === id);
-    if (idx !== -1) {
-      const oldTodoList = [...todoList];
-      // return old obj,  change old obj to new value in obj (merge obj)
-      oldTodoList[idx] = { ...oldTodoList[idx], ...newValue };
-      setTodoList(oldTodoList);
-    }
-  }
+  const updateTodo = async (newValue, id) => {
+    await axios.put(`http://localhost:8080/todos/${id}`, newValue);
+    const oldTodoList = await axios.get("http://localhost:8080/todos");
+    setTodoList(oldTodoList.data.todos);
+    console.log(oldTodoList);
 
-  function changeSearchStatus(value) {
+    // const idx = todoList.findIndex((el) => el.id === id);
+    // if (idx !== -1) {
+    //   const oldTodoList = [...todoList];
+    //   // return old obj,  change old obj to new value in obj (merge obj)
+    //   oldTodoList[idx] = { ...oldTodoList[idx], ...newValue };
+    //   setTodoList(oldTodoList);
+    // }
+  };
+
+  const changeSearchStatus = (value) => {
     setSearchStatus(value);
-  }
+  };
 
   // let filteredTodoList = [];
   // switch (searchStatus) {
@@ -71,6 +89,7 @@ function App() {
   //   default:
   //     filteredTodoList = [...todoList];
   // }
+
   const filteredTodoList = todoList.filter(
     (el) =>
       (searchStatus === null || el.completed === searchStatus) &&

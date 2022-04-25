@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "./ui/Button";
 // fragment -> React.Fragment -> big div
 function TodoInput(props) {
-  const { id } = props;
+  const { id, completed } = props;
 
   const [todoInput, setTodoInput] = useState(props.title || "");
   // ถ้ามีหลาย error ใส่เป็น obj
@@ -25,7 +25,7 @@ function TodoInput(props) {
     if (!todoInput) {
       setTodoError("Title is require");
     } else {
-      props.updateTodo({ title: todoInput }, id);
+      props.updateTodo({ title: todoInput, completed: completed }, id);
       props.closeEditing();
     }
   }
