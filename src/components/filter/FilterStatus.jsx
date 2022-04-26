@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import { TodoContext } from "../../context/TodoContext";
 import RadioButton from "../ui/RadioButton";
 
-function FilterStatus(props) {
-  const { changeSearchStatus, searchStatus } = props;
+function FilterStatus() {
+  const { changeSearchStatus, searchStatus } = useContext(TodoContext);
+
   return (
     <div className="btn-group ms-3 shadow">
       <RadioButton

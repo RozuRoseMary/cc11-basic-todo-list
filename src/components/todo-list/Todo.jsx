@@ -1,18 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../ui/Button";
 import TodoInput from "../TodoInput";
+import { TodoContext } from "../../context/TodoContext";
 
 function Todo(props) {
-  // App
-  const { title, completed, id, removeTodo, updateTodo } = props;
+  // const { title, completed, id, removeTodo, updateTodo } = props;
+  const { test, title, completed, id, removeTodo, updateTodo } =
+    useContext(TodoContext);
 
-  // show list task || edit title
   const [isEditing, setIsEditing] = useState(false);
 
   function closeEditing() {
     setIsEditing(false);
   }
-
   return (
     <li
       className={`list-group-item d-flex ${
@@ -21,11 +21,11 @@ function Todo(props) {
     >
       {isEditing ? (
         <TodoInput
-          id={id}
-          title={title}
-          completed={completed}
+          // id={id}
+          // title={title}
+          // completed={completed}
           closeEditing={closeEditing}
-          updateTodo={props.updateTodo}
+          // updateTodo={props.updateTodo}
         />
       ) : (
         <>
@@ -34,6 +34,7 @@ function Todo(props) {
             role="button"
             onClick={() => setIsEditing(true)}
           >
+            {/* {test} */}
             {title}
           </span>
           <div className="btn-group" role="button">
@@ -48,7 +49,11 @@ function Todo(props) {
             <Button color="danger">
               <i
                 className="fa-solid fa-trash-can"
-                onClick={() => removeTodo(id)}
+                onClick={
+                  // () => console.log(id)
+                  removeTodo(id)
+                  // console.log(removeTodo())
+                }
               ></i>
             </Button>
           </div>

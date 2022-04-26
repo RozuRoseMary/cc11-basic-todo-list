@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import { TodoContext } from "../../context/TodoContext";
 import Button from "../ui/Button";
 
-function FilterSearch(props) {
-  const { title, changeSearchTerm, searchTerm } = props;
+function FilterSearch() {
+  const { changeSearchTerm, searchTerm } = useContext(TodoContext);
+
   return (
     <div className="input-group shadow">
       <input

@@ -1,16 +1,20 @@
+import { useContext } from "react";
+import { TodoContext } from "../../context/TodoContext";
 import Todo from "./Todo";
 
-function TodoList(props) {
+function TodoList() {
+  const { todoList, removeTodo, updateTodo } = useContext(TodoContext);
+  console.log(todoList[0]);
   return (
     <ul className="list-group shadow mt-4">
-      {props.todoList.map((el) => (
+      {todoList.map((el) => (
         <Todo
           key={el.id}
+          id={el.id}
           title={el.title}
           completed={el.completed}
-          id={el.id}
-          removeTodo={props.removeTodo}
-          updateTodo={props.updateTodo}
+          // removeTodo={removeTodo}
+          // updateTodo={updateTodo}
         />
       ))}
     </ul>

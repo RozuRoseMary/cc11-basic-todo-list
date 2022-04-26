@@ -1,22 +1,22 @@
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import Button from "./ui/Button";
-// fragment -> React.Fragment -> big div
-function TodoInput(props) {
-  const { id, completed } = props;
+import { TodoContext } from "../context/TodoContext";
 
-  const [todoInput, setTodoInput] = useState(props.title || "");
-  // ถ้ามีหลาย error ใส่เป็น obj
+function TodoInput() {
+  const { id, completed, title, createTodo, updateTodo, closeEditing } =
+    useContext(TodoContext);
+
+  console.log(id);
+
+  const [todoInput, setTodoInput] = useState(title || "");
   const [todoError, setTodoError] = useState("");
 
   function handleClickBtn() {
-    // !todoInput => todoInput === ''
     if (!todoInput) {
       setTodoError("Title is required.");
     } else {
-      props.createTodo(todoInput);
-      // set text error to empty string (not show) when enter task
+      createTodo(todoInput);
       setTodoError("");
-      // set input to empty string when enter task
       setTodoInput("");
     }
   }
@@ -25,8 +25,8 @@ function TodoInput(props) {
     if (!todoInput) {
       setTodoError("Title is require");
     } else {
-      props.updateTodo({ title: todoInput, completed: completed }, id);
-      props.closeEditing();
+      updateTodo({ title: todoInput, completed: completed }, id);
+      closeEditing();
     }
   }
 
@@ -40,11 +40,10 @@ function TodoInput(props) {
           }`}
           placeholder="Enter new todo"
           value={todoInput}
-          onChange={(event) => setTodoInput(event.target.value)} // get current value
+          onChange={(event) => setTodoInput(event.target.value)}
         />
 
-        {/* if props.id already have value, render check icon */}
-        {props.id ? (
+        {id ? (
           <Button color="primary" onClick={handleClickUpdateBtn}>
             <i className="fa-solid fa-check"></i>
           </Button>
@@ -57,14 +56,14 @@ function TodoInput(props) {
         <Button
           color="outline-secondary"
           onClick={() => {
-            if (props.id) {
-              props.closeEditing();
+            if (id) {
+              closeEditing();
             } else {
               setTodoInput("");
             }
           }}
         >
-          <i className="fa-solid fa-x"></i> {/*props.children */}
+          <i className="fa-solid fa-x"></i>
         </Button>
       </div>
       {todoError && <small className="text-danger">{todoError}</small>}

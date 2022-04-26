@@ -5,8 +5,6 @@ function Button(props) {
 
   return (
     <button className={classes} onClick={props.onClick}>
-      {/* props.children -> between tag component */}
-      {/* <i className="fa-solid fa-plus"></i> */}
       {props.children}
     </button>
   );

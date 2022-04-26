@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import { TodoContext } from "../../context/TodoContext";
+
 function PageItem(props) {
-  const { active, disabled } = props;
+  const { active, disabled } = useContext(TodoContext);
+
   return (
-    // active button
     <li
       className={`page-item ${active ? "active" : ""} ${
         disabled ? "disabled" : ""
