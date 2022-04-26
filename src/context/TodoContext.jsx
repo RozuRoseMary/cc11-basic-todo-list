@@ -8,35 +8,20 @@ function TodoContextProvider(props) {
   const [searchStatus, setSearchStatus] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const test = "เดี๋ยวลบจ้า";
-
   useEffect(() => {
-    // axios
-    //   .get("http://localhost:8080/todos")
-    //   .then((res) => {
-    //     setTodoList(res.data.todos);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    try {
-      const fetchTodos = async () => {
-        const res = await axios.get("http://localhost:8080/todos");
+    axios
+      .get("http://localhost:8080/todos")
+      .then((res) => {
         setTodoList(res.data.todos);
-      };
-      fetchTodos();
-    } catch (err) {
-      console.log(err);
-    }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
-  const createTodo = async (title) => {
+  const createTodo = (title) => {
     try {
-      // const newTodo = { title, completed: false };
-      // await axios.post("http://localhost:8080/todos", newTodo).then((res) => {
-      // const newTodoList = [res.data.todo, ...todoList];
-      // setTodoList(newTodoList);
-      await axios
+      axios
         .post("http://localhost:8080/todos", { title, completed: false })
         .then((res) => {
           const newTodoList = [res.data.todo, ...todoList];
@@ -47,25 +32,38 @@ function TodoContextProvider(props) {
     }
   };
 
-  const removeTodo = async (id) => {
-    console.log(id);
-    try {
-      await axios.delete("http://localhost:8080/todos/" + id);
-      const toDelete = await axios.get("http://localhost:8080/todos");
-      setTodoList(toDelete.data.todos);
-    } catch (err) {
-      console.log(err);
-    }
+  const removeTodo = (id) => {
+    axios
+      .delete("http://localhost:8080/todos/" + id)
+      .then(() => {
+        const idx = todoList.findIndex((el) => el.id === id);
+        if (idx !== -1) {
+          const cloneTodoList = [...todoList];
+          cloneTodoList.splice(idx, 1);
+          setTodoList(cloneTodoList);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const updateTodo = async (newValue, id) => {
-    await axios.put(`http://localhost:8080/todos/${id}`, newValue);
-    const oldTodoList = await axios.get("http://localhost:8080/todos");
-    setTodoList(oldTodoList.data.todos);
-    console.log(oldTodoList);
+  const updateTodo = (newValue, id) => {
+    axios
+      .put(`http://localhost:8080/todos/${id}`, newValue)
+      .then((res) => {
+        const idx = todoList.findIndex((el) => el.id === id);
+        if (idx !== -1) {
+          const cloneTodoList = [...todoList];
+          cloneTodoList[idx] = { ...cloneTodoList[idx], ...newValue };
+          setTodoList(cloneTodoList);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  // FilterSearch
   const changeSearchStatus = (value) => {
     setSearchStatus(value);
   };
@@ -83,7 +81,6 @@ function TodoContextProvider(props) {
   return (
     <TodoContext.Provider
       value={{
-        test,
         todoList,
         setTodoList,
         searchStatus,

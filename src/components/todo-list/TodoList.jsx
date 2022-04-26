@@ -4,7 +4,6 @@ import Todo from "./Todo";
 
 function TodoList() {
   const { todoList, removeTodo, updateTodo } = useContext(TodoContext);
-  console.log(todoList[0]);
   return (
     <ul className="list-group shadow mt-4">
       {todoList.map((el) => (

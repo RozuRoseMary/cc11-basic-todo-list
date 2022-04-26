@@ -6,12 +6,12 @@ function TodoInput() {
   const { id, completed, title, createTodo, updateTodo, closeEditing } =
     useContext(TodoContext);
 
-  console.log(id);
-
   const [todoInput, setTodoInput] = useState(title || "");
   const [todoError, setTodoError] = useState("");
 
-  function handleClickBtn() {
+  // const ctx = useContext(TodoContext);
+
+  function handleClickBtn(props) {
     if (!todoInput) {
       setTodoError("Title is required.");
     } else {
@@ -25,7 +25,7 @@ function TodoInput() {
     if (!todoInput) {
       setTodoError("Title is require");
     } else {
-      updateTodo({ title: todoInput, completed: completed }, id);
+      updateTodo({ title: todoInput, completed: props.completed }, props.id);
       closeEditing();
     }
   }

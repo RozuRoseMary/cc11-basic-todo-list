@@ -4,8 +4,7 @@ import TodoInput from "../TodoInput";
 import { TodoContext } from "../../context/TodoContext";
 
 function Todo(props) {
-  // const { title, completed, id, removeTodo, updateTodo } = props;
-  const { test, title, completed, id, removeTodo, updateTodo } =
+  const { title, completed, id, removeTodo, updateTodo } =
     useContext(TodoContext);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -21,11 +20,11 @@ function Todo(props) {
     >
       {isEditing ? (
         <TodoInput
-          // id={id}
-          // title={title}
-          // completed={completed}
+          id={id}
+          title={title}
+          completed={completed}
           closeEditing={closeEditing}
-          // updateTodo={props.updateTodo}
+          updateTodo={props.updateTodo}
         />
       ) : (
         <>
@@ -34,7 +33,6 @@ function Todo(props) {
             role="button"
             onClick={() => setIsEditing(true)}
           >
-            {/* {test} */}
             {title}
           </span>
           <div className="btn-group" role="button">
@@ -47,14 +45,7 @@ function Todo(props) {
               ></i>
             </Button>
             <Button color="danger">
-              <i
-                className="fa-solid fa-trash-can"
-                onClick={
-                  // () => console.log(id)
-                  removeTodo(id)
-                  // console.log(removeTodo())
-                }
-              ></i>
+              <i className="fa-solid fa-trash-can" onClick={removeTodo(id)}></i>
             </Button>
           </div>
         </>
